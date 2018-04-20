@@ -1,10 +1,10 @@
-const webpack = require("webpack");
 const path = require("path");
-const webpackBase = require("./base");
-const webpackMerge = require("webpack-merge");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+const webpackBase = require("./base");
+const webpackMerge = require("webpack-merge");
 
 module.exports = webpackMerge(webpackBase,{
   mode: 'production',
@@ -52,14 +52,14 @@ module.exports = webpackMerge(webpackBase,{
           reuseExistingChunk: false,
           test: /node_modules\/(.*)\.js/
         },
-        // styles: {
-        //   name: 'styles',
-        //   test: /\.(scss|css)$/,
-        //   chunks: 'all',  // merge all the css chunk to one file
-        //   minChunks: 1,
-        //   reuseExistingChunk: true,
-        //   enforce: true
-        // }
+        styles: {
+          name: 'styles',
+          test: /\.(scss|css)$/,
+          chunks: 'initial',  // merge all the css chunk to one file
+          minChunks: 2,
+          reuseExistingChunk: true,
+          enforce: true
+        }
       }
     }
   }

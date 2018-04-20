@@ -1,6 +1,7 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const config = require("./config");
 const root = path.resolve(__dirname, '..');
 
@@ -14,11 +15,11 @@ config.HTMLDirs.forEach((page) => {
   const htmlPlugin = new HTMLWebpackPlugin({
     filename: `${page}.html`,
     template: path.resolve(__dirname, `../src/html/${page}.html`),
-    chunks: [page, 'commons'],
+    chunks: [page, 'vendor', 'styles'],
     hash: true, // 防止缓存
-  });
-HTMLPlugins.push(htmlPlugin);
-Entries[page] = path.resolve(__dirname, `../src/js/${page}.js`);
+  })
+  HTMLPlugins.push(htmlPlugin);
+  Entries[page] = path.resolve(__dirname, `../src/js/${page}.js`);
 })
 
 module.exports = {
@@ -37,10 +38,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
-            options: {
-              // minimize: true // css压缩
-            }
+            loader: 'css-loader'
           }
         ]
       },

@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
+
 const webpackBase = require("./base");
 const webpackMerge = require("webpack-merge");
 const config = require("./config");
@@ -7,13 +8,12 @@ const config = require("./config");
 module.exports = webpackMerge(webpackBase, {
   mode: 'development',
   output:{
-    filename:"js/[name].[hash].js",
+    filename:"[name].js",
     path: path.resolve(__dirname,"../dist"),
     publicPath: '/'
   },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
-    contentBase: config.devServerOutputPath,
     port: config.port,
     overlay: {    // 错误、警告页面展示设置
       errors: true,
